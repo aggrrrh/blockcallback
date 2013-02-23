@@ -1,0 +1,35 @@
+#blockcallback_block_left p {
+	text-align: center;
+	padding-bottom: 0;
+}
+
+#blockcallback_block_left p,
+#blockcallback_block_left label {
+	padding-top: 10px;
+}
+
+#blockcallback_block_left label {
+	display: block;
+	font-weight: 700;
+	font-size: 12px;
+}
+
+#blockcallback_block_left input[type="text"] {
+	border: 1px solid #cdcdcd;
+	box-sizing: border-box;
+	padding: 1px 2px;
+}
+
+#blockcallback_block_left input {
+	width: 100%;
+}
+
+.blockcallback_error {
+	color: #DA0F00;
+	font-weight: bold;
+}
+
+.blockcallback_success {
+	color: #418B19;
+	font-weight: bold;
+}
