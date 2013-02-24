@@ -2,7 +2,7 @@
 <div id="blockcallback_block_left" class="block">
 	<h4>{l s='We call you back' mod='blockcallback'}</h4>
 	<div class="block_content">
-		<form action="{$link->getPageLink('index.php')}" method="post">
+		<form action="{$smarty.server.REQUEST_URI}" method="post">
 		{if !empty($blockcallback_msg)}
 			<p class="{if isset($blockcallback_error) && $blockcallback_error}blockcallback_error{else}blockcallback_success{/if}">{$blockcallback_msg}</p>
 		{/if}

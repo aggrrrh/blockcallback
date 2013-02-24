@@ -86,7 +86,15 @@ class BlockCallback extends Module
 
 	function hookHeader($params)
 	{
-		Tools::addCSS($this->_path.'blockcallback.css', 'all');
+		if(method_exists('Tools', 'addCSS'))
+		{
+			Tools::addCSS($this->_path.'blockcallback.css', 'all');
+		}
+		else
+		{
+			echo '<link href="'._MODULE_DIR_.$this->name.'/blockcallback.css" rel="stylesheet" type="text/css" media="all" />';
+			echo '<style type="text/css">#blockcallback_block_left input.exclusive { display: inline-block; width: 120px; }</style>';
+		}
 	}
 
 	public function hookLeftColumn($params)
@@ -152,7 +160,8 @@ class BlockCallback extends Module
 
 	protected function _save($name, $phone)
 	{
-		return Db::getInstance()->Execute('INSERT INTO `'._DB_PREFIX_.'blockcallback` (`name`, `phone`, `created`, `ip`) VALUES (\''.pSQL($name).'\', \''.pSQL($phone).'\', NOW(), \''.pSQL(Tools::getRemoteAddr()).'\')');
+		$remoteAddr = method_exists('Tools', 'getRemoteAddr') ? Tools::getRemoteAddr() : $_SERVER['REMOTE_ADDR'];
+		return Db::getInstance()->Execute('INSERT INTO `'._DB_PREFIX_.'blockcallback` (`name`, `phone`, `created`, `ip`) VALUES (\''.pSQL($name).'\', \''.pSQL($phone).'\', NOW(), \''.pSQL($remoteAddr).'\')');
 	}
 /*
 	protected function _notify($name, $phone)
@@ -175,6 +184,7 @@ class BlockCallback extends Module
 		}
 	}
 */
+/*
 	public function getContent()
 	{
 		global $smarty;
@@ -209,4 +219,5 @@ class BlockCallback extends Module
 
 		return $output;
 	}
+*/
 }

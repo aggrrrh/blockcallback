@@ -21,6 +21,7 @@
 }
 
 #blockcallback_block_left input {
+	margin: 0;
 	width: 100%;
 }
 

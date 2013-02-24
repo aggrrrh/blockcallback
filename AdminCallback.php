@@ -18,11 +18,17 @@ class AdminCallback extends AdminTab
 
 		$this->fieldsDisplay = array(
 			'id_blockcallback' => array('title' => $this->l('#'), 'align' => 'center', 'width' => 25),
-			'name' => array('title' => $this->l('Customer name'), 'width' => 300),
-			'phone' => array('title' => $this->l('Customer phone number'), 'width' => 300),
+			'name' => array('title' => $this->l('Customer name')),
+			'phone' => array('title' => $this->l('Customer phone number')),
 			'active' => array('title' => $this->l('Processed'), 'type' => 'bool', 'active' => 'status'),
-			'created' => array('title' => $this->l('Date'), 'type' => 'datetime', 'width' => 120),
+			'created' => array('title' => $this->l('Date'), 'type' => 'datetime',),
 			'ip' => array('title' => $this->l('IP'), 'type' => 'text'),
 		);
+	}
+
+	public function displayListHeader($token = NULL)
+	{
+		echo '<style type="text/css">form.form>table, form.form table.table { width: 100%; }</style>', "\n";
+		return parent::displayListHeader($token);
 	}
 }
