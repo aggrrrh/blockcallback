@@ -1,0 +1,8 @@
+Hi!
+
+Call back request in shop {shop_name}:
+
+Name: {customer_name}
+Phone: {customer_phone}
+
+{shop_url}

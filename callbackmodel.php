@@ -15,4 +15,12 @@ class CallbackModel extends ObjectModel
 
 		return $fields;
 	}
+
+	// Older version compatibility.
+	public function toggleStatus()
+	{
+		$this->active = !(int)$this->active;
+
+		return $this->update(false);
+	}
 }

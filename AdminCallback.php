@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__).'/CallbackModel.php');
+require_once(dirname(__FILE__).'/callbackmodel.php');
 
 class AdminCallback extends AdminTab
 {

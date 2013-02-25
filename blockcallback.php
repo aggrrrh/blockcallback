@@ -92,8 +92,8 @@ class BlockCallback extends Module
 		}
 		else
 		{
-			echo '<link href="'._MODULE_DIR_.$this->name.'/blockcallback.css" rel="stylesheet" type="text/css" media="all" />';
-			echo '<style type="text/css">#blockcallback_block_left input.exclusive { display: inline-block; width: 120px; }</style>';
+			return '<link href="'._MODULE_DIR_.$this->name.'/blockcallback.css" rel="stylesheet" type="text/css" media="all" />'."\n".
+				'<style type="text/css">#blockcallback_block_left input.exclusive { display: inline-block; width: 120px; }</style>'."\n";
 		}
 	}
 
@@ -163,7 +163,7 @@ class BlockCallback extends Module
 		$remoteAddr = method_exists('Tools', 'getRemoteAddr') ? Tools::getRemoteAddr() : $_SERVER['REMOTE_ADDR'];
 		return Db::getInstance()->Execute('INSERT INTO `'._DB_PREFIX_.'blockcallback` (`name`, `phone`, `created`, `ip`) VALUES (\''.pSQL($name).'\', \''.pSQL($phone).'\', NOW(), \''.pSQL($remoteAddr).'\')');
 	}
-/*
+
 	protected function _notify($name, $phone)
 	{
 		$email = Configuration::get('CALLBACK_EMAIL');
@@ -175,16 +175,18 @@ class BlockCallback extends Module
 		$id_lang = (int)Configuration::get('PS_LANG_DEFAULT');
 		$iso = Language::getIsoById($id_lang);
 
-		$templateVars = array();
+		$templateVars = array(
+			'{customer_name}' => $name,
+			'{customer_phone}' => $phone,
+		);
 
-		if (file_exists(dirname(__FILE__).'/mails/'.$iso.'/callback.txt') &&
+		if(file_exists(dirname(__FILE__).'/mails/'.$iso.'/callback.txt') &&
 			file_exists(dirname(__FILE__).'/mails/'.$iso.'/callback.html'))
 		{
-			Mail::Send($id_lang, 'callback', Mail::l('Call back request', $id_lang), $templateVars, strval($email), NULL, strval(Configuration::get('PS_SHOP_EMAIL')), strval(Configuration::get('PS_SHOP_NAME')), NULL, NULL, dirname(__FILE__).'/mails/');
+			Mail::Send($id_lang, 'callback', $this->l('Call back request'), $templateVars, strval($email), NULL, strval(Configuration::get('PS_SHOP_EMAIL')), strval(Configuration::get('PS_SHOP_NAME')), NULL, NULL, dirname(__FILE__).'/mails/');
 		}
 	}
-*/
-/*
+
 	public function getContent()
 	{
 		global $smarty;
@@ -219,5 +221,4 @@ class BlockCallback extends Module
 
 		return $output;
 	}
-*/
 }
