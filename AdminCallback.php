@@ -10,6 +10,7 @@ class AdminCallback extends AdminTab
 	public $delete = true;
 	public $deleted = false;
 
+	public $noLink = true;
 	public $colorOnBackground = true;
 
 	public function __construct()
