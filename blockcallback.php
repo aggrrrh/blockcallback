@@ -9,7 +9,7 @@ class BlockCallback extends Module
 	{
 		$this->name = 'blockcallback';
 		$this->tab = 'front_office_features';
-		$this->version = 0.1;
+		$this->version = 0.2;
 		$this->author = 'aggrrrh';
 		$this->need_instance = 0;
 
