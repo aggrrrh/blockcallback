@@ -12,7 +12,9 @@ $_MODULE['<{blockcallback}prestashop>blockcallback_fd2f820569d83784238e1027897b4
 $_MODULE['<{blockcallback}prestashop>blockcallback_1fa629ba8067ff8dc39a266a67aeaf5a'] = 'Введите корректный номер телефона';
 $_MODULE['<{blockcallback}prestashop>blockcallback_11228bc0cf49d6b53668aac546836f41'] = 'Мы свяжемся с Вами в ближайшее время!';
 $_MODULE['<{blockcallback}prestashop>blockcallback_8f8913c1f755436db84ae169e37c61f9'] = 'Внутренняя ошибка';
+$_MODULE['<{blockcallback}prestashop>blockcallback_6c69e6c57cf8660d6df3944415ae1308'] = 'Запрос обратного звонка';
 $_MODULE['<{blockcallback}prestashop>blockcallback_59e4904d4366fab35a8282f418e699de'] = 'Некорректный email адрес';
+$_MODULE['<{blockcallback}prestashop>blockcallback_290a1ef3e265864bf503fa72a97e9268'] = 'Время отображения С должно быть меньше времени По';
 $_MODULE['<{blockcallback}prestashop>blockcallback_c888438d14855d7d96a2724ee9c306bd'] = 'Настройки сохранены';
 $_MODULE['<{blockcallback}prestashop>blockcallback_c52c66245b091ac975abb0d1524255d3'] = 'Обратный звонок';
 $_MODULE['<{blockcallback}prestashop>blockcallback_a2ed44743411cf8b80e397448fce104c'] = 'Ваше имя:';
@@ -20,4 +22,14 @@ $_MODULE['<{blockcallback}prestashop>blockcallback_061663da042f99560bf62522cd378
 $_MODULE['<{blockcallback}prestashop>blockcallback_11ddd2aa4cb423c526fa831b72ac0f83'] = 'Заказать';
 $_MODULE['<{blockcallback}prestashop>settings_f4f70727dc34561dfde1a3c529b6205c'] = 'Настройки';
 $_MODULE['<{blockcallback}prestashop>settings_2df994fe4798f819768c87824ec15ced'] = 'Адрес email';
+$_MODULE['<{blockcallback}prestashop>settings_45f4b1172477463a43006ad4b0e0f5c4'] = 'Время отображения';
+$_MODULE['<{blockcallback}prestashop>settings_6f8522e0610541f1ef215a22ffa66ff6'] = 'Понедельник';
+$_MODULE['<{blockcallback}prestashop>settings_5792315f09a5d54fb7e3d066672b507f'] = 'Вторник';
+$_MODULE['<{blockcallback}prestashop>settings_796c163589f295373e171842f37265d5'] = 'Среда';
+$_MODULE['<{blockcallback}prestashop>settings_78ae6f0cd191d25147e252dc54768238'] = 'Четверг';
+$_MODULE['<{blockcallback}prestashop>settings_c33b138a163847cdb6caeeb7c9a126b4'] = 'Пятница';
+$_MODULE['<{blockcallback}prestashop>settings_8b7051187b9191cdcdae6ed5a10e5adc'] = 'Суббота';
+$_MODULE['<{blockcallback}prestashop>settings_9d1a0949c39e66a0cd65240bc0ac9177'] = 'Воскресенье';
+$_MODULE['<{blockcallback}prestashop>settings_1e6d57e813355689e9c77e947d73ad8f'] = 'С:';
+$_MODULE['<{blockcallback}prestashop>settings_33caa076f23f453dd4061726f3706325'] = 'По:';
 $_MODULE['<{blockcallback}prestashop>settings_c9cc8cce247e49bae79f15173ce97354'] = 'Сохранить';

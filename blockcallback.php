@@ -24,7 +24,7 @@ class BlockCallback extends Module
 		if(!parent::install() ||
 			!$this->registerHook('leftColumn') ||
 			!$this->registerHook('header') ||
-			!Configuration::updateValue('CALLBACK_EMAIL', '') ||
+			!$this->installConfiguration() ||
 			!$this->_installModuleTab())
 		{
 			return false;
@@ -48,9 +48,38 @@ class BlockCallback extends Module
 		if(!parent::uninstall())
 			return false;
 
+		$this->uninstallConfiguration();
 		$this->_uninstallModuleTab();
 
 		return Db::getInstance()->Execute('DROP TABLE IF EXISTS '._DB_PREFIX_.'blockcallback');
+	}
+
+	protected function installConfiguration()
+	{
+		return Configuration::updateValue('CALLBACK_EMAIL', '') &&
+			Configuration::updateValue('CALLBACK_DISPLAY_DAY_0', 1) &&
+			Configuration::updateValue('CALLBACK_DISPLAY_DAY_1', 1) &&
+			Configuration::updateValue('CALLBACK_DISPLAY_DAY_2', 1) &&
+			Configuration::updateValue('CALLBACK_DISPLAY_DAY_3', 1) &&
+			Configuration::updateValue('CALLBACK_DISPLAY_DAY_4', 1) &&
+			Configuration::updateValue('CALLBACK_DISPLAY_DAY_5', 1) &&
+			Configuration::updateValue('CALLBACK_DISPLAY_DAY_6', 1) &&
+			Configuration::updateValue('CALLBACK_DISPLAY_TIME_FROM', '') &&
+			Configuration::updateValue('CALLBACK_DISPLAY_TIME_TO', '');
+	}
+
+	protected function uninstallConfiguration()
+	{
+		return Configuration::deleteByName('CALLBACK_EMAIL') &&
+			Configuration::deleteByName('CALLBACK_DISPLAY_DAY_0') &&
+			Configuration::deleteByName('CALLBACK_DISPLAY_DAY_1') &&
+			Configuration::deleteByName('CALLBACK_DISPLAY_DAY_2') &&
+			Configuration::deleteByName('CALLBACK_DISPLAY_DAY_3') &&
+			Configuration::deleteByName('CALLBACK_DISPLAY_DAY_4') &&
+			Configuration::deleteByName('CALLBACK_DISPLAY_DAY_5') &&
+			Configuration::deleteByName('CALLBACK_DISPLAY_DAY_6') &&
+			Configuration::deleteByName('CALLBACK_DISPLAY_TIME_FROM') &&
+			Configuration::deleteByName('CALLBACK_DISPLAY_TIME_TO');
 	}
 
 	protected function _installModuleTab()
@@ -99,6 +128,9 @@ class BlockCallback extends Module
 
 	public function hookLeftColumn($params)
 	{
+		if(!$this->isVisible())
+			return;
+
 		$this->_processInput();
 		return $this->display(__FILE__, 'blockcallback.tpl');
 	}
@@ -106,6 +138,30 @@ class BlockCallback extends Module
 	public function hookRightColumn($params)
 	{
 		return $this->hookLeftColumn($params);
+	}
+
+	protected function isVisible()
+	{
+		$dayOfWeek = date('N') - 1;
+		if(!Configuration::get('CALLBACK_DISPLAY_DAY_'.$dayOfWeek))
+		{
+			return false;
+		}
+		else
+		{
+			$from = Configuration::get('CALLBACK_DISPLAY_TIME_FROM');
+			$to = Configuration::get('CALLBACK_DISPLAY_TIME_TO');
+			if(isset($from, $to) && $from !== '' && $to !== '')
+			{
+				$h = intval(date('G'));
+				if($h < $from || $h >= $to)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	protected function _processInput()
@@ -202,9 +258,35 @@ class BlockCallback extends Module
 			{
 				$errors[] = $this->l('Invalid email address');
 			}
+
+			$timeFrom = Tools::getValue('CALLBACK_DISPLAY_TIME_FROM', '');
+			$timeTo = Tools::getValue('CALLBACK_DISPLAY_TIME_TO', '');
+			if($timeFrom == '' || $timeTo == '')
+			{
+				$timeFrom = $timeTo = '';
+			}
 			else
 			{
+				if(intval($timeFrom) >= intval($timeTo))
+				{
+					$errors[] = $this->l('Display time From must be less then time To');
+				}
+			}
+
+			if(empty($errors))
+			{
 				Configuration::updateValue('CALLBACK_EMAIL', $email);
+
+				Configuration::updateValue('CALLBACK_DISPLAY_DAY_0', Tools::getValue('CALLBACK_DISPLAY_DAY_0', ''));
+				Configuration::updateValue('CALLBACK_DISPLAY_DAY_1', Tools::getValue('CALLBACK_DISPLAY_DAY_1', ''));
+				Configuration::updateValue('CALLBACK_DISPLAY_DAY_2', Tools::getValue('CALLBACK_DISPLAY_DAY_2', ''));
+				Configuration::updateValue('CALLBACK_DISPLAY_DAY_3', Tools::getValue('CALLBACK_DISPLAY_DAY_3', ''));
+				Configuration::updateValue('CALLBACK_DISPLAY_DAY_4', Tools::getValue('CALLBACK_DISPLAY_DAY_4', ''));
+				Configuration::updateValue('CALLBACK_DISPLAY_DAY_5', Tools::getValue('CALLBACK_DISPLAY_DAY_5', ''));
+				Configuration::updateValue('CALLBACK_DISPLAY_DAY_6', Tools::getValue('CALLBACK_DISPLAY_DAY_6', ''));
+
+				Configuration::updateValue('CALLBACK_DISPLAY_TIME_FROM', $timeFrom);
+				Configuration::updateValue('CALLBACK_DISPLAY_TIME_TO', $timeTo);
 			}
 
 			if(!empty($errors))
@@ -215,6 +297,15 @@ class BlockCallback extends Module
 
 		$smarty->assign(array(
 			'CALLBACK_EMAIL' => Configuration::get('CALLBACK_EMAIL'),
+			'CALLBACK_DISPLAY_DAY_0' => Configuration::get('CALLBACK_DISPLAY_DAY_0'),
+			'CALLBACK_DISPLAY_DAY_1' => Configuration::get('CALLBACK_DISPLAY_DAY_1'),
+			'CALLBACK_DISPLAY_DAY_2' => Configuration::get('CALLBACK_DISPLAY_DAY_2'),
+			'CALLBACK_DISPLAY_DAY_3' => Configuration::get('CALLBACK_DISPLAY_DAY_3'),
+			'CALLBACK_DISPLAY_DAY_4' => Configuration::get('CALLBACK_DISPLAY_DAY_4'),
+			'CALLBACK_DISPLAY_DAY_5' => Configuration::get('CALLBACK_DISPLAY_DAY_5'),
+			'CALLBACK_DISPLAY_DAY_6' => Configuration::get('CALLBACK_DISPLAY_DAY_6'),
+			'CALLBACK_DISPLAY_TIME_FROM' => Configuration::get('CALLBACK_DISPLAY_TIME_FROM'),
+			'CALLBACK_DISPLAY_TIME_TO' => Configuration::get('CALLBACK_DISPLAY_TIME_TO'),
 		));
 
 		$output .= $this->display(__FILE__, 'settings.tpl');
