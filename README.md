@@ -1,4 +1,4 @@
-prestashop-callback
+blockcallback
 ===================
 
 Callback module for prestashop.
