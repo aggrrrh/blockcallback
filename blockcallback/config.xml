@@ -2,7 +2,7 @@
         <module>
             <name>blockcallback</name>
             <displayName><![CDATA[Обратный звонок]]></displayName>
-            <version><![CDATA[0.1]]></version>
+            <version><![CDATA[0.2.1]]></version>
             <description><![CDATA[Модуль обратного звонка]]></description>
             <author><![CDATA[aggrrrh]]></author>
             <tab><![CDATA[front_office_features]]></tab>
