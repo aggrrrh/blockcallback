@@ -187,7 +187,7 @@ class BlockCallback extends Module
 			{
 				if($this->_save($_POST['BlockCallbackName'], $_POST['BlockCallbackPhone']))
 				{
-//					$this->_notify($_POST['BlockCallbackName'], $_POST['BlockCallbackPhone']);
+					$this->_notify($_POST['BlockCallbackName'], $_POST['BlockCallbackPhone']);
 					$msg = $this->l('We will call you soon!');
 				}
 				else

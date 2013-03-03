@@ -1,3 +1,4 @@
+{literal}
 <style type="text/css">
 	form.blockcallback table {
 		text-align: center;
@@ -14,6 +15,7 @@
 		width: auto;
 	}
 </style>
+{/literal}
 <form action="{$smarty.server.REQUEST_URI}" method="POST" class="blockcallback">
 	<fieldset>
 		<legend>{l s='Settings' mod='blockcallback'}</legend>
